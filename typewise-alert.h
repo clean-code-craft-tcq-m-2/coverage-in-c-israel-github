@@ -19,7 +19,6 @@ typedef enum alertTarget_e {
 } alertTarget_t;
 
 typedef struct coolingSystem_s {
-	char name[20];
 	double lowLimit;
 	double hiLimit;
 } coolingSystem_t;
@@ -31,9 +30,9 @@ typedef struct batteryCharacter_s {
 } batteryCharacter_t;
 
 coolingSystem_t coolingSystems[] = {
-	{ .name = "Passive",	.lowLimit = 0.0F,	.hiLimit = 35.0F },
-	{ .name = "Hi_Active",	.lowLimit = 0.0F,	.hiLimit = 45.0F },
-	{ .name = "Med_Active",	.lowLimit = 0.0F,	.hiLimit = 40.0F }
+	[PASSIVE_COOLING] =		{ .lowLimit = 0.0F,	.hiLimit = 35.0F },
+	[HI_ACTIVE_COOLING] =	{ .lowLimit = 0.0F,	.hiLimit = 45.0F },
+	[MED_ACTIVE_COOLING] =	{ .lowLimit = 0.0F,	.hiLimit = 40.0F }
 };
 
 char breachMsgs[3][20] = {
