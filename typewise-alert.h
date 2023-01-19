@@ -1,32 +1,52 @@
+
 #pragma once
 
-typedef enum {
+typedef enum coolingType_e {
   PASSIVE_COOLING,
   HI_ACTIVE_COOLING,
   MED_ACTIVE_COOLING
-} CoolingType;
+} coolingType_t;
 
-typedef enum {
+typedef enum breachType_e {
   NORMAL,
   TOO_LOW,
   TOO_HIGH
-} BreachType;
+} breachType_t;
 
-BreachType inferBreach(double value, double lowerLimit, double upperLimit);
-BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
-
-typedef enum {
+typedef enum alertTarget_e {
   TO_CONTROLLER,
   TO_EMAIL
-} AlertTarget;
+} alertTarget_t;
 
-typedef struct {
-  CoolingType coolingType;
+typedef struct coolingSystem_s {
+	char name[10];
+	int lowLimit;
+	int hiLimit;
+} coolingSystem_t;
+
+typedef struct batteryCharacter_s {
   char brand[48];
-} BatteryCharacter;
+  coolingSystem_t battCoolingSystem;
+  unsigned int target;
+} batteryCharacter_t;
 
-void checkAndAlert(
-  AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+coolingSystem_t coolingSystems[] = {
+	{ .name = "Passive",	.lowLimit = 0.0F,	.hiLimit = 35.0F },
+	{ .name = "Hi_Active",	.lowLimit = 0.0F,	.hiLimit = 45.0F },
+	{ .name = "Med_Active",	.lowLimit = 0.0F,	.hiLimit = 40.0F }
+};
 
-void sendToController(BreachType breachType);
-void sendToEmail(BreachType breachType);
+char breachMsgs[3][10] = {
+	"OK",
+	"too low",
+	"too high"
+};
+
+char targetMsgs[2][30] = {
+	"Controller",
+	"mail@server.com"
+};
+
+breachType_t ClassifyBreach(coolingSystem_t coolingSystem, double temperatureInC);
+void SendAlert(unsigned int target, breachType_t breachType);
+void CheckAndAlert(batteryCharacter_t batteryChar, double temperatureInC);
