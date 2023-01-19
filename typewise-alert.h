@@ -19,9 +19,9 @@ typedef enum alertTarget_e {
 } alertTarget_t;
 
 typedef struct coolingSystem_s {
-	char name[10];
-	int lowLimit;
-	int hiLimit;
+	char name[20];
+	double lowLimit;
+	double hiLimit;
 } coolingSystem_t;
 
 typedef struct batteryCharacter_s {
@@ -36,7 +36,7 @@ coolingSystem_t coolingSystems[] = {
 	{ .name = "Med_Active",	.lowLimit = 0.0F,	.hiLimit = 40.0F }
 };
 
-char breachMsgs[3][10] = {
+char breachMsgs[3][20] = {
 	"OK",
 	"too low",
 	"too high"

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "typewise-alert.h"
 
-breachType_t ClassifyBreach(coolingSystem_t coolingSystem, double temperatureInC)
+breachType_t ClassifyBreach(const coolingSystem_t coolingSystem, const double temperatureInC)
 {
 	if (temperatureInC < coolingSystem.lowLimit)
 	{
@@ -17,14 +17,17 @@ breachType_t ClassifyBreach(coolingSystem_t coolingSystem, double temperatureInC
 	}
 }
 
-void SendAlert(unsigned int target, breachType_t breachType)
+void SendAlert(const unsigned int target, const breachType_t breachType)
 {
 	printf("To: %s\nTemperature is %s\n", targetMsgs[target], breachMsgs[breachType]);
 }
 
-void CheckAndAlert(batteryCharacter_t batteryChar, double temperatureInC)
+void CheckAndAlert(const batteryCharacter_t batteryChar, const double temperatureInC)
 {
-	breachType_t breachType = ClassifyBreach(batteryChar.battCoolingSystem, temperatureInC);
+	const breachType_t breachType = ClassifyBreach(batteryChar.battCoolingSystem, temperatureInC);
 
 	SendAlert(batteryChar.target, breachType);
 }
+
+//Added for local compiling
+// void main(){}
