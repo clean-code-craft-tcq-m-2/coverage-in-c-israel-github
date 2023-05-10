@@ -32,7 +32,7 @@ extern const coolingSystem_t coolingSystems[COOLING_TYPE_COUNT];
 extern batteryCharacter_t testBattery;
 extern char breachMsgs[3][20];
 extern char targetMsgs[2][30];
-extern char alertMsg[50];
+extern char alertMsg[70];
 
 breachType_t ClassifyBreach(coolingSystem_t coolingSystem, double temperatureInC);
 void SendAlert(unsigned int target, breachType_t breachType);

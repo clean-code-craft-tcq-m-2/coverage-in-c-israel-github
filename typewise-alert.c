@@ -7,8 +7,6 @@ const coolingSystem_t coolingSystems[COOLING_TYPE_COUNT] = {
 	[MED_ACTIVE_COOLING] =	{ .lowLimit = 0.0F,	.hiLimit = 40.0F }
 };
 
-batteryCharacter_t testBattery = {.battCoolingSystem = coolingSystems[0], .target = TO_CONTROLLER};
-
 char breachMsgs[3][20] = {
 	[NORMAL] =		"OK",
 	[TOO_LOW] =		"too low",
@@ -20,7 +18,7 @@ char targetMsgs[2][30] = {
 	[TO_EMAIL] =		"mail@domain.com"
 };
 
-char alertMsg[50] = " ";
+char alertMsg[70] = " ";
 
 breachType_t ClassifyBreach(const coolingSystem_t coolingSystem, const double temperatureInC)
 {
