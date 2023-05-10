@@ -1,22 +1,26 @@
 #include <stdio.h>
 #include "typewise-alert.h"
 
-coolingSystem_t coolingSystems[COOLING_TYPE_COUNT] = {
+const coolingSystem_t coolingSystems[COOLING_TYPE_COUNT] = {
 	[PASSIVE_COOLING] =		{ .lowLimit = 0.0F,	.hiLimit = 35.0F },
 	[HI_ACTIVE_COOLING] =	{ .lowLimit = 0.0F,	.hiLimit = 45.0F },
 	[MED_ACTIVE_COOLING] =	{ .lowLimit = 0.0F,	.hiLimit = 40.0F }
 };
 
+batteryCharacter_t testBattery = {.battCoolingSystem = coolingSystems[0], .target = TO_CONTROLLER};
+
 char breachMsgs[3][20] = {
-	"OK",
-	"too low",
-	"too high"
+	[NORMAL] =		"OK",
+	[TOO_LOW] =		"too low",
+	[TOO_HIGH] =	"too high"
 };
 
 char targetMsgs[2][30] = {
-	"Controller",
-	"mail@domain.com"
+	[TO_CONTROLLER] =	"Controller",
+	[TO_EMAIL] =		"mail@domain.com"
 };
+
+char alertMsg[50] = " ";
 
 breachType_t ClassifyBreach(const coolingSystem_t coolingSystem, const double temperatureInC)
 {
@@ -36,7 +40,8 @@ breachType_t ClassifyBreach(const coolingSystem_t coolingSystem, const double te
 
 void SendAlert(const unsigned int target, const breachType_t breachType)
 {
-	printf("To: %s\nTemperature is %s\n", targetMsgs[target], breachMsgs[breachType]);
+	sprintf(alertMsg, "To: %s\nTemperature is %s\n", targetMsgs[target], breachMsgs[breachType]);
+	printf(alertMsg);
 }
 
 void CheckAndAlert(const batteryCharacter_t batteryChar, const double temperatureInC)
@@ -47,4 +52,17 @@ void CheckAndAlert(const batteryCharacter_t batteryChar, const double temperatur
 }
 
 //Added for local compiling
-//void main(){}
+/*void main()
+{
+	SendAlert(TO_CONTROLLER, TOO_LOW);
+
+	SendAlert(TO_CONTROLLER, NORMAL);
+
+	SendAlert(TO_CONTROLLER, TOO_HIGH);
+
+	SendAlert(TO_EMAIL, TOO_LOW);
+
+	SendAlert(TO_EMAIL, NORMAL);
+
+	SendAlert(TO_EMAIL, TOO_HIGH);
+}*/

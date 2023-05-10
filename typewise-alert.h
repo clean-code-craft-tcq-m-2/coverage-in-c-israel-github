@@ -1,6 +1,4 @@
 
-#pragma once
-
 typedef enum coolingType_e {
   PASSIVE_COOLING,
   HI_ACTIVE_COOLING,
@@ -26,13 +24,15 @@ typedef struct coolingSystem_s {
 
 typedef struct batteryCharacter_s {
   char brand[48];
-  coolingSystem_t battCoolingSystem;
+  const coolingSystem_t battCoolingSystem;
   alertTarget_t target;
 } batteryCharacter_t;
 
-extern coolingSystem_t coolingSystems[COOLING_TYPE_COUNT];
+extern const coolingSystem_t coolingSystems[COOLING_TYPE_COUNT];
+extern batteryCharacter_t testBattery;
 extern char breachMsgs[3][20];
 extern char targetMsgs[2][30];
+extern char alertMsg[50];
 
 breachType_t ClassifyBreach(coolingSystem_t coolingSystem, double temperatureInC);
 void SendAlert(unsigned int target, breachType_t breachType);
