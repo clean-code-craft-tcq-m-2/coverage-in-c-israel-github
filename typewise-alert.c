@@ -8,9 +8,9 @@ const coolingSystem_t coolingSystems[COOLING_TYPE_COUNT] = {
 };
 
 char breachMsgs[3][20] = {
-	[NORMAL] =		"OK",
-	[TOO_LOW] =		"too low",
-	[TOO_HIGH] =	"too high"
+	"OK",
+	"too low",
+	"too high"
 };
 
 char targetMsgs[2][30] = {
