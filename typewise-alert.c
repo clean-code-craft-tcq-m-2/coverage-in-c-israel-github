@@ -14,8 +14,8 @@ char breachMsgs[3][20] = {
 };
 
 char targetMsgs[2][30] = {
-	[TO_CONTROLLER] =	"Controller",
-	[TO_EMAIL] =		"mail@domain.com"
+	"Controller",
+	"mail@domain.com"
 };
 
 char alertMsg[70] = " ";
