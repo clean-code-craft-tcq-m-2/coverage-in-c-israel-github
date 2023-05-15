@@ -24,6 +24,9 @@ TEST_CASE("infers the breach according to limits") {
 }
 
 TEST_CASE("Alert messages") {
+	CheckAndAlert(testBatteries[0], 12.0F);
+	REQUIRE(strcmp(alertMsg, " ") == 0);
+
 	CheckAndAlert(testBatteries[0], -12.0F);
 	//SendAlert(TO_CONTROLLER, TOO_LOW);
 	REQUIRE(strcmp(alertMsg, "To: Controller\nTemperature is too low\n") == 0);
