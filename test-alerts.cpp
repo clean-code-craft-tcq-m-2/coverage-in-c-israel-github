@@ -4,7 +4,7 @@
 #include "typewise-alert.h"
 #include "string.h"
 
-batteryCharacter_t testBatteries[1] = {
+batteryCharacter_t testBatteries[2] = {
 	{.battCoolingSystem = coolingSystems[0], .target = TO_CONTROLLER},
 	{.battCoolingSystem = coolingSystems[0], .target = TO_EMAIL},
 	};
