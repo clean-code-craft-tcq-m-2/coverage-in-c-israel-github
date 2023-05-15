@@ -4,6 +4,11 @@
 #include "typewise-alert.h"
 #include "string.h"
 
+batteryCharacter_t testBatteries[1] = {
+	{.brand = "Bosch", .battCoolingSystem = coolingSystems[0], .target = TO_CONTROLLER},
+	{.brand = "Bosch", .battCoolingSystem = coolingSystems[0], .target = TO_EMAIL},
+	};
+
 TEST_CASE("infers the breach according to limits") {
 	REQUIRE(ClassifyBreach(coolingSystems[PASSIVE_COOLING], -12.0F) == TOO_LOW);
 	REQUIRE(ClassifyBreach(coolingSystems[PASSIVE_COOLING], 12.0F) == NORMAL);
@@ -19,21 +24,19 @@ TEST_CASE("infers the breach according to limits") {
 }
 
 TEST_CASE("Alert messages") {
-	SendAlert(TO_CONTROLLER, TOO_LOW);
+	CheckAndAlert(testBatteries[0], -12.0F);
+	//SendAlert(TO_CONTROLLER, TOO_LOW);
 	REQUIRE(strcmp(alertMsg, "To: Controller\nTemperature is too low\n") == 0);
 
-	SendAlert(TO_CONTROLLER, NORMAL);
-	REQUIRE(strcmp(alertMsg, "To: Controller\nTemperature is OK\n") == 0);
-
-	SendAlert(TO_CONTROLLER, TOO_HIGH);
+	CheckAndAlert(testBatteries[0], 40.0F);
+	//SendAlert(TO_CONTROLLER, TOO_HIGH);
 	REQUIRE(strcmp(alertMsg, "To: Controller\nTemperature is too high\n") == 0);
 
-	SendAlert(TO_EMAIL, TOO_LOW);
+	CheckAndAlert(testBatteries[1], -12.0F);
+	//SendAlert(TO_EMAIL, TOO_LOW);
 	REQUIRE(strcmp(alertMsg, "To: mail@domain.com\nTemperature is too low\n") == 0);
 
-	SendAlert(TO_EMAIL, NORMAL);
-	REQUIRE(strcmp(alertMsg, "To: mail@domain.com\nTemperature is OK\n") == 0);
-
-	SendAlert(TO_EMAIL, TOO_HIGH);
+	CheckAndAlert(testBatteries[1], 40.0F);
+	//SendAlert(TO_EMAIL, TOO_HIGH);
 	REQUIRE(strcmp(alertMsg, "To: mail@domain.com\nTemperature is too high\n") == 0);
 }

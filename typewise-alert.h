@@ -30,7 +30,7 @@ typedef struct batteryCharacter_s {
 
 extern const coolingSystem_t coolingSystems[COOLING_TYPE_COUNT];
 extern batteryCharacter_t testBattery;
-extern char breachMsgs[3][20];
+extern char breachMsgs[2][20];
 extern char targetMsgs[2][30];
 extern char alertMsg[70];
 

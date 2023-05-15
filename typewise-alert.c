@@ -7,8 +7,7 @@ const coolingSystem_t coolingSystems[COOLING_TYPE_COUNT] = {
 	[MED_ACTIVE_COOLING] =	{ .lowLimit = 0.0F,	.hiLimit = 40.0F }
 };
 
-char breachMsgs[3][20] = {
-	"OK",
+char breachMsgs[2][20] = {
 	"too low",
 	"too high"
 };
@@ -38,7 +37,7 @@ breachType_t ClassifyBreach(const coolingSystem_t coolingSystem, const double te
 
 void SendAlert(const unsigned int target, const breachType_t breachType)
 {
-	sprintf(alertMsg, "To: %s\nTemperature is %s\n", targetMsgs[target], breachMsgs[breachType]);
+	sprintf(alertMsg, "To: %s\nTemperature is %s\n", targetMsgs[target], breachMsgs[breachType - 1]);
 	printf(alertMsg);
 }
 
@@ -46,21 +45,20 @@ void CheckAndAlert(const batteryCharacter_t batteryChar, const double temperatur
 {
 	const breachType_t breachType = ClassifyBreach(batteryChar.battCoolingSystem, temperatureInC);
 
-	SendAlert(batteryChar.target, breachType);
+	if ((breachType != NORMAL))
+	{
+		SendAlert(batteryChar.target, breachType);
+	}
 }
 
 //Added for local compiling
-/*void main()
+void main()
 {
 	SendAlert(TO_CONTROLLER, TOO_LOW);
-
-	SendAlert(TO_CONTROLLER, NORMAL);
 
 	SendAlert(TO_CONTROLLER, TOO_HIGH);
 
 	SendAlert(TO_EMAIL, TOO_LOW);
 
-	SendAlert(TO_EMAIL, NORMAL);
-
 	SendAlert(TO_EMAIL, TOO_HIGH);
-}*/
+}
