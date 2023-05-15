@@ -52,7 +52,7 @@ void CheckAndAlert(const batteryCharacter_t batteryChar, const double temperatur
 }
 
 //Added for local compiling
-void main()
+/*int main()
 {
 	SendAlert(TO_CONTROLLER, TOO_LOW);
 
@@ -61,4 +61,6 @@ void main()
 	SendAlert(TO_EMAIL, TOO_LOW);
 
 	SendAlert(TO_EMAIL, TOO_HIGH);
-}
+
+	return 0;
+}*/

@@ -5,8 +5,8 @@
 #include "string.h"
 
 batteryCharacter_t testBatteries[1] = {
-	{.brand = "Bosch", .battCoolingSystem = coolingSystems[0], .target = TO_CONTROLLER},
-	{.brand = "Bosch", .battCoolingSystem = coolingSystems[0], .target = TO_EMAIL},
+	{.battCoolingSystem = coolingSystems[0], .target = TO_CONTROLLER},
+	{.battCoolingSystem = coolingSystems[0], .target = TO_EMAIL},
 	};
 
 TEST_CASE("infers the breach according to limits") {
